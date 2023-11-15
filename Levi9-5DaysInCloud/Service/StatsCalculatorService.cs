@@ -1,4 +1,6 @@
-﻿using Levi9_5DaysInCloud.Model.AdvancedStatsModel;
+﻿using Levi9_5DaysInCloud.Dto;
+using Levi9_5DaysInCloud.Helper;
+using Levi9_5DaysInCloud.Model.AdvancedStatsModel;
 using Levi9_5DaysInCloud.Model.PlayersModel;
 using Levi9_5DaysInCloud.Model.TraditionalStatsModel;
 using Levi9_5DaysInCloud.Repository;
@@ -20,24 +22,24 @@ namespace Levi9_5DaysInCloud.Service
             return onePlayerStats = playerPerformanceModels.Where(p => p.Name == playerName).ToList();
         }
 
-        public PlayerStatsModel CalculatePlayersStats(string playerName)
+        public PlayersStatsDto CalculatePlayersStats(string playerName)
         {
             PlayerStatsModel playerStatsModel = new PlayerStatsModel();
             playerStatsModel.playerName = playerName;
             playerStatsModel.gamesPlayed = GetPlayersStats(playerName).Count();
             TraditionalStats traditional = CalculateTraditionalStats(onePlayerStats);
             playerStatsModel.traditional = traditional;
+            //traditional.RoundDataForAdvancesStats();
             playerStatsModel.advanced = CalculateAdvancedStats(onePlayerStats, traditional);
-            return playerStatsModel;
+            return Mapper.ReturnPlayerDto(playerStatsModel);
         }
 
         public AdvancedStats CalculateAdvancedStats(IEnumerable<PlayerPerformanceModel> onePlayerStats,TraditionalStats traditional)
         {
             return new AdvancedStats
             {
-                //valorization = CalculateValorization(onePlayerStats),
-                Valorization = CalculateValorization(onePlayerStats),
-                EffectiveFieldGoalPercentage = CalculateEffectiveFieldGoalPercentage(onePlayerStats),
+                Valorization = CalculateValorization(traditional),
+                EffectiveFieldGoalPercentage = CalculateEffectiveFieldGoalPercentage(traditional),
                 TrueShootingPercentage = CalculateTrueShootingPercentage(traditional),
                 HollingerAssistRatio = CalculateHollingerAssistRatio(traditional)
             };
@@ -60,66 +62,6 @@ namespace Levi9_5DaysInCloud.Service
 
             return traditionalStats;
         }
-        private decimal CalculateHollingerAssistRatio(TraditionalStats traditional)
-        {
-             
-             decimal hast = traditional.assists /
-                    (traditional.twoPoints.atempts + traditional.threePoints.atempts + 0.475M * traditional.freeThrows.atempts +
-                    traditional.assists + traditional.turnovers) * 100;
-
-            return hast;
-        }
-
-        private decimal CalculateTrueShootingPercentage(TraditionalStats traditional)
-        {
-            decimal ts = (traditional.points / (2 * (traditional.twoPoints.atempts + traditional.threePoints.atempts + 0.475M * traditional.freeThrows.atempts)) * 100);
-
-            return ts;
-        }
-
-
-        private decimal CalculateAssists(IEnumerable<PlayerPerformanceModel> onePlayerStats)
-        {
-            decimal assists = 0;
-            foreach (var stats in onePlayerStats)
-            {
-                assists += stats.Assists;
-            }
-            return assists / onePlayerStats.Count();
-        }
-
-        private decimal CalculateSteals(IEnumerable<PlayerPerformanceModel> onePlayerStats)
-        {
-            decimal steals = 0;
-            foreach (var stats in onePlayerStats)
-            {
-                steals += stats.Steals;
-            }
-            return steals / onePlayerStats.Count();
-        }
-
-        private decimal CalculateTurnovers(IEnumerable<PlayerPerformanceModel> onePlayerStats)
-        {
-            decimal turnovers = 0;
-            foreach (var stats in onePlayerStats)
-            {
-                turnovers += stats.Turnovers;
-            }
-            return turnovers / onePlayerStats.Count();
-        }
-
-
-        private decimal CalculatePoints(IEnumerable<PlayerPerformanceModel> onePlayerStats)
-        {
-            decimal points = 0;
-
-            foreach (var stats in onePlayerStats)
-            {
-                points += stats.FreeThrowMade + 2 * stats.TwoPointsMade + 3 * stats.ThreePointsMade;
-            }
-            return points/onePlayerStats.Count();
-        }
-
         private FreeThrows CalculateFreeThrows(IEnumerable<PlayerPerformanceModel> onePlayerStats)
         {
             FreeThrows freeThrows = new FreeThrows();
@@ -159,24 +101,17 @@ namespace Levi9_5DaysInCloud.Service
             threeThrows.shootingPercentage = (threeThrows.made / threeThrows.atempts) * 100;
             return threeThrows;
         }
-        private decimal CalculateEffectiveFieldGoalPercentage(IEnumerable<PlayerPerformanceModel> onePlayerStats)
+        private decimal CalculatePoints(IEnumerable<PlayerPerformanceModel> onePlayerStats)
         {
-            decimal efg = 0;
-            foreach(var stats in onePlayerStats)
-            {
-                efg += (decimal)(stats.TwoPointsMade + stats.ThreePointsMade + 0.5 * stats.ThreePointsMade) / (stats.TwoPointsAttempted + stats.ThreePointsAttempted) * 100;
-            }
-            return efg/onePlayerStats.Count();
-        }
-        private decimal CalculateValorization(IEnumerable<PlayerPerformanceModel> onePlayerStats)
-        {
-            decimal valorization = 0;
-            foreach(var stats in onePlayerStats)
-            {
-                valorization += (stats.FreeThrowMade + 2 * stats.TwoPointsMade + 3 * stats.ThreePointsMade + stats.Rebounds + stats.Blocks + stats.Assists + stats.Steals) - (stats.FreeThrowAttempted - stats.FreeThrowMade + stats.TwoPointsAttempted - stats.TwoPointsMade + stats.TwoPointsAttempted - stats.TwoPointsMade + stats.Turnovers);
-            }
-            return valorization/onePlayerStats.Count();
+            decimal points = 0;
 
+            foreach (var stats in onePlayerStats)
+            {
+                points += stats.FreeThrowMade + 2 * stats.TwoPointsMade + 3 * stats.ThreePointsMade;
+            }
+            
+            points = Math.Round(points/onePlayerStats.Count(),3);
+            return points;
         }
         private decimal CalculateRebounds(IEnumerable<PlayerPerformanceModel> onePlayerStats)
         {
@@ -195,6 +130,70 @@ namespace Levi9_5DaysInCloud.Service
                 blocks += stats.Blocks;
             }
             return blocks / onePlayerStats.Count();
+        }
+        private decimal CalculateAssists(IEnumerable<PlayerPerformanceModel> onePlayerStats)
+        {
+            decimal assists = 0;
+            foreach (var stats in onePlayerStats)
+            {
+                assists += stats.Assists;
+            }
+            return assists / onePlayerStats.Count();
+        }
+        private decimal CalculateSteals(IEnumerable<PlayerPerformanceModel> onePlayerStats)
+        {
+            decimal steals = 0;
+            foreach (var stats in onePlayerStats)
+            {
+                steals += stats.Steals;
+            }
+            return steals / onePlayerStats.Count();
+        }
+        private decimal CalculateTurnovers(IEnumerable<PlayerPerformanceModel> onePlayerStats)
+        {
+            decimal turnovers = 0;
+            foreach (var stats in onePlayerStats)
+            {
+                turnovers += stats.Turnovers;
+            }
+            return turnovers / onePlayerStats.Count();
+        }
+
+        private decimal CalculateHollingerAssistRatio(TraditionalStats traditional)
+        {
+             
+             decimal hast = traditional.assists /
+                    (traditional.twoPoints.atempts + traditional.threePoints.atempts + 0.475M * traditional.freeThrows.atempts +
+                    traditional.assists + traditional.turnovers) * 100;
+
+            return hast;
+        }
+        private decimal CalculateTrueShootingPercentage(TraditionalStats traditional)
+        {
+            decimal ts = (traditional.points / (2 * (traditional.twoPoints.atempts + traditional.threePoints.atempts + 0.475M * traditional.freeThrows.atempts)) * 100);
+
+            return ts;
+        }
+        private decimal CalculateEffectiveFieldGoalPercentage(TraditionalStats traditional)
+        {
+            decimal efg = (traditional.twoPoints.made + traditional.threePoints.made + 0.5M * traditional.threePoints.made) / (traditional.twoPoints.atempts + traditional.threePoints.atempts) * 100;
+            return efg;
+        }
+        private decimal CalculateValorization(TraditionalStats traditional)
+        {
+            decimal valorization = (traditional.freeThrows.made +
+                        2M * traditional.twoPoints.made +
+                        3M * traditional.threePoints.made +
+                        traditional.rebounds +
+                        traditional.blocks +
+                        traditional.assists +
+                        traditional.steals) -
+                       (traditional.freeThrows.atempts - traditional.freeThrows.made +
+                        traditional.twoPoints.atempts - traditional.twoPoints.made +
+                        traditional.threePoints.atempts - traditional.threePoints.made +
+                        traditional.turnovers);
+            return valorization;
+
         }
 
     }

@@ -11,36 +11,37 @@
         private decimal Assists { get; set; }
         private decimal Steals { get; set; }
         private decimal Turnovers { get; set; }
+        int RoundForAdvancesStats = 3;
 
         public decimal points
         {
-            get => Math.Round(Points, 2);
-            set => Points = Math.Round(value, 1);
+            get => Math.Round(Points, RoundForAdvancesStats);
+            set => Points = Math.Round(value, RoundForAdvancesStats);
         }
         public decimal rebounds
         {
-            get => Math.Round(Rebounds, 2);
-            set => Rebounds = Math.Round(value, 1);
+            get => Math.Round(Rebounds, RoundForAdvancesStats);
+            set => Rebounds = Math.Round(value, RoundForAdvancesStats);
         }
         public decimal blocks
         {
-            get => Math.Round(Blocks, 2);
-            set => Blocks = Math.Round(value, 1);
+            get => Math.Round(Blocks, RoundForAdvancesStats);
+            set => Blocks = Math.Round(value, RoundForAdvancesStats);
         }
         public decimal assists
         {
-            get => Math.Round(Assists, 2);
-            set => Assists = Math.Round(value, 1);
+            get => Math.Round(Assists, RoundForAdvancesStats);
+            set => Assists = Math.Round(value, RoundForAdvancesStats);
         }
         public decimal steals
         {
-            get => Math.Round(Steals, 2);
-            set => Steals = Math.Round(value, 1);
+            get => Math.Round(Steals, RoundForAdvancesStats);
+            set => Steals = Math.Round(value, RoundForAdvancesStats);
         }
         public decimal turnovers
         {
-            get => Math.Round(Turnovers, 2);
-            set => Turnovers = Math.Round(value, 1);
+            get => Math.Round(Turnovers, RoundForAdvancesStats);
+            set => Turnovers = Math.Round(value, RoundForAdvancesStats);
         }
 
     }

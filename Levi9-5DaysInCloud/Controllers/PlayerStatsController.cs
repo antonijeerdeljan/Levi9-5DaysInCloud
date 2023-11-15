@@ -1,3 +1,4 @@
+using Levi9_5DaysInCloud.Dto;
 using Levi9_5DaysInCloud.Model;
 using Levi9_5DaysInCloud.Model.PlayersModel;
 using Levi9_5DaysInCloud.Repository;
@@ -23,7 +24,7 @@ namespace Levi9_5DaysInCloud.Controllers
         [HttpGet("{playerFullName}", Name = "GetPlayerStats")]
         public IActionResult GetPlayerStats(string playerFullName)
         {
-            PlayerStatsModel playerStats = statsCalculatorService.CalculatePlayersStats(playerFullName);
+            PlayersStatsDto playerStats = statsCalculatorService.CalculatePlayersStats(playerFullName);
 
             if (playerStats == null)
             {
