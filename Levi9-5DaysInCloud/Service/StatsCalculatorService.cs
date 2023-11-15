@@ -19,14 +19,16 @@ namespace Levi9_5DaysInCloud.Service
 
         private IEnumerable<PlayerPerformanceModel> GetPlayersStats(string playerName)
         {
-            return onePlayerStats = playerPerformanceModels.Where(p => p.Name == playerName).ToList();
-        }
+           return onePlayerStats = playerPerformanceModels.Where(p => p.Name == playerName).ToList();
+        }    
 
         public PlayersStatsDto CalculatePlayersStats(string playerName)
         {
             PlayerStatsModel playerStatsModel = new PlayerStatsModel();
             playerStatsModel.playerName = playerName;
             playerStatsModel.gamesPlayed = GetPlayersStats(playerName).Count();
+            if (playerStatsModel.gamesPlayed == 0)
+                return null;
             TraditionalStats traditional = CalculateTraditionalStats(onePlayerStats);
             playerStatsModel.traditional = traditional;
             //traditional.RoundDataForAdvancesStats();

@@ -28,7 +28,7 @@ namespace Levi9_5DaysInCloud.Controllers
 
             if (playerStats == null)
             {
-                return NotFound($"Player stats not found for {playerFullName}");
+                return NotFound($"Player not found");
             }
 
             return Ok(playerStats);
