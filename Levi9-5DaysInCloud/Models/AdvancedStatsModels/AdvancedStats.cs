@@ -4,10 +4,10 @@ namespace Levi9_5DaysInCloud.Model.AdvancedStatsModel
 {
     public class AdvancedStats
     {
-        private decimal valorization { get; set; }
-        private decimal effectiveFieldGoalPercentage { get; set; }
-        private decimal trueShootingPercentage { get; set; }
-        private decimal hollingerAssistRatio { get; set; }
+        private decimal valorization;
+        private decimal effectiveFieldGoalPercentage;
+        private decimal trueShootingPercentage;
+        private decimal hollingerAssistRatio;
 
         public decimal Valorization
         {

@@ -2,46 +2,48 @@
 {
     public class TraditionalStats
     {
-        public FreeThrows freeThrows { get; set; }
-        public TwoPoints twoPoints { get; set; }
-        public ThreePoints threePoints { get; set; }
-        private decimal Points { get; set; }
-        private decimal Rebounds { get; set; }
-        private decimal Blocks { get; set; }
-        private decimal Assists { get; set; }
-        private decimal Steals { get; set; }
-        private decimal Turnovers { get; set; }
-        int RoundForAdvancesStats = 3;
+        public FreeThrows FreeThrows { get; set; }
+        public TwoPoints TwoPoints { get; set; }
+        public ThreePoints ThreePoints { get; set; }
 
-        public decimal points
+        private decimal _points;
+        private decimal _rebounds;
+        private decimal _blocks;
+        private decimal _assists;
+        private decimal _steals;
+        private decimal _turnovers;
+
+        private const int ROUND_FOR_ADVANCED_STATS = 3;
+
+        public decimal Points
         {
-            get => Math.Round(Points, RoundForAdvancesStats);
-            set => Points = Math.Round(value, RoundForAdvancesStats);
+            get => Math.Round(_points, ROUND_FOR_ADVANCED_STATS);
+            set => _points = Math.Round(value, ROUND_FOR_ADVANCED_STATS);
         }
-        public decimal rebounds
+        public decimal Rebounds
         {
-            get => Math.Round(Rebounds, RoundForAdvancesStats);
-            set => Rebounds = Math.Round(value, RoundForAdvancesStats);
+            get => Math.Round(_rebounds, ROUND_FOR_ADVANCED_STATS);
+            set => _rebounds = Math.Round(value, ROUND_FOR_ADVANCED_STATS);
         }
-        public decimal blocks
+        public decimal Blocks
         {
-            get => Math.Round(Blocks, RoundForAdvancesStats);
-            set => Blocks = Math.Round(value, RoundForAdvancesStats);
+            get => Math.Round(_blocks, ROUND_FOR_ADVANCED_STATS);
+            set => _blocks = Math.Round(value, ROUND_FOR_ADVANCED_STATS);
         }
-        public decimal assists
+        public decimal Assists
         {
-            get => Math.Round(Assists, RoundForAdvancesStats);
-            set => Assists = Math.Round(value, RoundForAdvancesStats);
+            get => Math.Round(_assists, ROUND_FOR_ADVANCED_STATS);
+            set => _assists = Math.Round(value, ROUND_FOR_ADVANCED_STATS);
         }
-        public decimal steals
+        public decimal Steals
         {
-            get => Math.Round(Steals, RoundForAdvancesStats);
-            set => Steals = Math.Round(value, RoundForAdvancesStats);
+            get => Math.Round(_steals, ROUND_FOR_ADVANCED_STATS);
+            set => _steals = Math.Round(value, ROUND_FOR_ADVANCED_STATS);
         }
-        public decimal turnovers
+        public decimal Turnovers
         {
-            get => Math.Round(Turnovers, RoundForAdvancesStats);
-            set => Turnovers = Math.Round(value, RoundForAdvancesStats);
+            get => Math.Round(_turnovers, ROUND_FOR_ADVANCED_STATS);
+            set => _turnovers = Math.Round(value, ROUND_FOR_ADVANCED_STATS);
         }
 
     }

@@ -54,15 +54,15 @@ namespace Levi9_5DaysInCloud.Service
         {
             TraditionalStats traditionalStats = new TraditionalStats
             {
-                freeThrows = CalculateFreeThrows(onePlayerStats),
-                twoPoints = CalculateTwoPoints(onePlayerStats),
-                threePoints = CalculateThreePoints(onePlayerStats),
-                points = CalculatePoints(onePlayerStats),
-                rebounds = CalculateRebounds(onePlayerStats),
-                blocks = CalculateBlocks(onePlayerStats),
-                assists = CalculateAssists(onePlayerStats),
-                steals = CalculateSteals(onePlayerStats),
-                turnovers = CalculateTurnovers(onePlayerStats)
+                FreeThrows = CalculateFreeThrows(onePlayerStats),
+                TwoPoints = CalculateTwoPoints(onePlayerStats),
+                ThreePoints = CalculateThreePoints(onePlayerStats),
+                Points = CalculatePoints(onePlayerStats),
+                Rebounds = CalculateRebounds(onePlayerStats),
+                Blocks = CalculateBlocks(onePlayerStats),
+                Assists = CalculateAssists(onePlayerStats),
+                Steals = CalculateSteals(onePlayerStats),
+                Turnovers = CalculateTurnovers(onePlayerStats)
             };
 
             return traditionalStats;
@@ -72,12 +72,12 @@ namespace Levi9_5DaysInCloud.Service
             FreeThrows freeThrows = new FreeThrows();
             foreach(var stats in onePlayerStats)
             {
-                freeThrows.atempts += stats.FreeThrowAttempted;
-                freeThrows.made += stats.FreeThrowMade;
+                freeThrows.Attempts += stats.FreeThrowAttempted;
+                freeThrows.Made += stats.FreeThrowMade;
             }
-            freeThrows.atempts = freeThrows.atempts / onePlayerStats.Count();
-            freeThrows.made = freeThrows.made / onePlayerStats.Count();
-            freeThrows.shootingPercentage = (freeThrows.made / freeThrows.atempts) * 100;
+            freeThrows.Attempts = freeThrows.Attempts / onePlayerStats.Count();
+            freeThrows.Made = freeThrows.Made / onePlayerStats.Count();
+            freeThrows.ShootingPercentage = (freeThrows.Made / freeThrows.Attempts) * 100;
             return freeThrows;
         }
         private TwoPoints CalculateTwoPoints(IEnumerable<PlayerPerformanceModel> onePlayerStats)
@@ -85,12 +85,12 @@ namespace Levi9_5DaysInCloud.Service
             TwoPoints twoThrows = new TwoPoints();
             foreach (var stats in onePlayerStats)
             {
-                twoThrows.atempts += stats.TwoPointsAttempted;
-                twoThrows.made += stats.TwoPointsMade;
+                twoThrows.Attempts += stats.TwoPointsAttempted;
+                twoThrows.Made += stats.TwoPointsMade;
             }
-            twoThrows.atempts = twoThrows.atempts / onePlayerStats.Count();
-            twoThrows.made = twoThrows.made / onePlayerStats.Count();
-            twoThrows.shootingPercentage = (twoThrows.made / twoThrows.atempts) * 100;
+            twoThrows.Attempts = twoThrows.Attempts / onePlayerStats.Count();
+            twoThrows.Made = twoThrows.Made / onePlayerStats.Count();
+            twoThrows.ShootingPercentage = (twoThrows.Made / twoThrows.Attempts) * 100;
             return twoThrows;
         }
         private ThreePoints CalculateThreePoints(IEnumerable<PlayerPerformanceModel> onePlayerStats)
@@ -98,12 +98,12 @@ namespace Levi9_5DaysInCloud.Service
             ThreePoints threeThrows = new ThreePoints();
             foreach (var stats in onePlayerStats)
             {
-                threeThrows.atempts += stats.ThreePointsAttempted;
-                threeThrows.made += stats.ThreePointsMade;
+                threeThrows.Attempts += stats.ThreePointsAttempted;
+                threeThrows.Made += stats.ThreePointsMade;
             }
-            threeThrows.atempts = threeThrows.atempts / onePlayerStats.Count();
-            threeThrows.made = threeThrows.made / onePlayerStats.Count();
-            threeThrows.shootingPercentage = (threeThrows.made / threeThrows.atempts) * 100;
+            threeThrows.Attempts = threeThrows.Attempts / onePlayerStats.Count();
+            threeThrows.Made = threeThrows.Made / onePlayerStats.Count();
+            threeThrows.ShootingPercentage = (threeThrows.Made / threeThrows.Attempts) * 100;
             return threeThrows;
         }
         private decimal CalculatePoints(IEnumerable<PlayerPerformanceModel> onePlayerStats)
@@ -167,36 +167,36 @@ namespace Levi9_5DaysInCloud.Service
         private decimal CalculateHollingerAssistRatio(TraditionalStats traditional)
         {
              
-             decimal hast = traditional.assists /
-                    (traditional.twoPoints.atempts + traditional.threePoints.atempts + 0.475M * traditional.freeThrows.atempts +
-                    traditional.assists + traditional.turnovers) * 100;
+             decimal hast = traditional.Assists /
+                    (traditional.TwoPoints.Attempts + traditional.ThreePoints.Attempts + 0.475M * traditional.FreeThrows.Attempts +
+                    traditional.Assists + traditional.Turnovers) * 100;
 
             return hast;
         }
         private decimal CalculateTrueShootingPercentage(TraditionalStats traditional)
         {
-            decimal ts = (traditional.points / (2 * (traditional.twoPoints.atempts + traditional.threePoints.atempts + 0.475M * traditional.freeThrows.atempts)) * 100);
+            decimal ts = (traditional.Points / (2 * (traditional.TwoPoints.Attempts + traditional.ThreePoints.Attempts + 0.475M * traditional.FreeThrows.Attempts)) * 100);
 
             return ts;
         }
         private decimal CalculateEffectiveFieldGoalPercentage(TraditionalStats traditional)
         {
-            decimal efg = (traditional.twoPoints.made + traditional.threePoints.made + 0.5M * traditional.threePoints.made) / (traditional.twoPoints.atempts + traditional.threePoints.atempts) * 100;
+            decimal efg = (traditional.TwoPoints.Made + traditional.ThreePoints.Made + 0.5M * traditional.ThreePoints.Made) / (traditional.TwoPoints.Attempts + traditional.ThreePoints.Attempts) * 100;
             return efg;
         }
         private decimal CalculateValorization(TraditionalStats traditional)
         {
-            decimal valorization = (traditional.freeThrows.made +
-                        2M * traditional.twoPoints.made +
-                        3M * traditional.threePoints.made +
-                        traditional.rebounds +
-                        traditional.blocks +
-                        traditional.assists +
-                        traditional.steals) -
-                       (traditional.freeThrows.atempts - traditional.freeThrows.made +
-                        traditional.twoPoints.atempts - traditional.twoPoints.made +
-                        traditional.threePoints.atempts - traditional.threePoints.made +
-                        traditional.turnovers);
+            decimal valorization = (traditional.FreeThrows.Made +
+                        2M * traditional.TwoPoints.Made +
+                        3M * traditional.ThreePoints.Made +
+                        traditional.Rebounds +
+                        traditional.Blocks +
+                        traditional.Assists +
+                        traditional.Steals) -
+                       (traditional.FreeThrows.Attempts - traditional.FreeThrows.Made +
+                        traditional.TwoPoints.Attempts - traditional.TwoPoints.Made +
+                        traditional.ThreePoints.Attempts - traditional.ThreePoints.Made +
+                        traditional.Turnovers);
             return valorization;
 
         }
