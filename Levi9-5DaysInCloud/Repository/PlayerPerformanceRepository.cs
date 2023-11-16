@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
 using Levi9_5DaysInCloud.Enum;
-using Levi9_5DaysInCloud.IRepository;
 using Levi9_5DaysInCloud.Model.PlayersModel;
 using System.Globalization;
 
@@ -9,7 +8,7 @@ namespace Levi9_5DaysInCloud.Repository
     public class PlayerPerformanceRepository : IPlayerPerformanceRepository
     {
         
-        public IEnumerable<PlayerPerformanceModel> MapCsvToPlayerPerformances()
+        public IReadOnlyList<PlayerPerformanceModel> MapCsvToPlayerPerformances()
         {
             try
             {

@@ -2,7 +2,7 @@
 using Levi9_5DaysInCloud.Model.PlayersModel;
 using Levi9_5DaysInCloud.Model.TraditionalStatsModel;
 
-namespace Levi9_5DaysInCloud.Helper
+namespace Levi9_5DaysInCloud.Common
 {
     public static class Mapper
     {
@@ -35,7 +35,8 @@ namespace Levi9_5DaysInCloud.Helper
                     playersStatsDto.Traditional.turnovers = Math.Round(playersStatsDto.Traditional.turnovers, 1);
                     playersStatsDto.Advanced = playersStatsDto.Advanced.GetRounded();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 // Catch any other unexpected exceptions
                 // Logging or handling other exceptions can go here
