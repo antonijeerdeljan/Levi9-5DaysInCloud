@@ -5,9 +5,9 @@ namespace Levi9_5DaysInCloud.Dto
 {
     public class PlayersStatsDto
     {
-        public string playerName { get; set; }
-        public int gamesPlayed { get; set; }
-        public TraditionalStats traditional { get; set; }
-        public AdvancedStats advanced { get; set; }
+        public string PlayerName { get; set; }
+        public int GamesPlayed { get; set; }
+        public TraditionalStats Traditional { get; set; }
+        public AdvancedStats Advanced { get; set; }
     }
 }
