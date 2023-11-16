@@ -7,5 +7,5 @@ Pokrenuti pomoću komande "dotnet run", za lakše testiranje moguće je takođe 
 Opcija B:
 Pokrenuti "docker compose up --build" u Levi9-5DaysInCloud folderu, swaggeru je moguće pristupiti na localhost:4300/swagger
 
-Za parsiranje CSV fajla sam korostio sam CsvHelper biblioteku
-
+Za parsiranje CSV fajla sam korostio sam CsvHelper biblioteku, za testiranje sam koristio XUnit Framework
+i NSubstitute za mock-ovanje
