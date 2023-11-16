@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levi9-5DaysInCloud", "Levi9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{6A5F6E01-D98F-4210-9E14-33EC141B77B6}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FBE0C6DF-CEF7-41A4-A7EA-39C0968C2906}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6A5F6E01-D98F-4210-9E14-33EC141B77B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A5F6E01-D98F-4210-9E14-33EC141B77B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A5F6E01-D98F-4210-9E14-33EC141B77B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE0C6DF-CEF7-41A4-A7EA-39C0968C2906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE0C6DF-CEF7-41A4-A7EA-39C0968C2906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE0C6DF-CEF7-41A4-A7EA-39C0968C2906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE0C6DF-CEF7-41A4-A7EA-39C0968C2906}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

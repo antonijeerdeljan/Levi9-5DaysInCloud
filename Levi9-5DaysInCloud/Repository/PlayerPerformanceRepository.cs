@@ -15,6 +15,8 @@ namespace Levi9_5DaysInCloud.Repository
                 string relativePath = Path.Combine("Data", "L9HomeworkChallengePlayersInput.csv");
                 string filePath = Path.GetFullPath(relativePath);
 
+                Console.WriteLine(filePath);
+
                 var reader = new StreamReader(filePath);
 
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))

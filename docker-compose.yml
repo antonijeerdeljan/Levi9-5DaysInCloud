@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  levi9-5daysincloud:
+    image: levi95daysincloud:latest
+    ports:
+      - 4300:80
+    build:
+      context: .
+      dockerfile: Levi9-5DaysInCloud/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    

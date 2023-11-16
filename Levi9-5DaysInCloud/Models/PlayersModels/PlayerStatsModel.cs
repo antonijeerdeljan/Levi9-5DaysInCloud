@@ -1,6 +1,5 @@
 ﻿using Levi9_5DaysInCloud.Model.AdvancedStatsModel;
 using Levi9_5DaysInCloud.Model.TraditionalStatsModel;
-using System.Diagnostics.Contracts;
 
 namespace Levi9_5DaysInCloud.Model.PlayersModel
 {
