@@ -1,5 +1,6 @@
 ﻿using Levi9_5DaysInCloud.Dto;
 using Levi9_5DaysInCloud.Helper;
+using Levi9_5DaysInCloud.IRepository;
 using Levi9_5DaysInCloud.Model.AdvancedStatsModel;
 using Levi9_5DaysInCloud.Model.PlayersModel;
 using Levi9_5DaysInCloud.Model.TraditionalStatsModel;
@@ -12,9 +13,12 @@ namespace Levi9_5DaysInCloud.Service
         private static IEnumerable<PlayerPerformanceModel> playerPerformanceModels { get; set; }
         private IEnumerable<PlayerPerformanceModel> onePlayerStats { get; set; }
 
-        public StatsCalculatorService()
+        private readonly IPlayerPerformanceRepository playerPerformanceRepository;
+
+        public StatsCalculatorService(IPlayerPerformanceRepository playerPerformance)
         {
-            playerPerformanceModels = PlayerPerformanceRepository.MapCsvToPlayerPerformances();
+            playerPerformanceRepository = playerPerformance;
+            playerPerformanceModels = playerPerformanceRepository.MapCsvToPlayerPerformances();
         }
 
         private IEnumerable<PlayerPerformanceModel> GetPlayersStats(string playerName)
@@ -25,14 +29,14 @@ namespace Levi9_5DaysInCloud.Service
         public PlayersStatsDto CalculatePlayersStats(string playerName)
         {
             PlayerStatsModel playerStatsModel = new PlayerStatsModel();
-            playerStatsModel.playerName = playerName;
-            playerStatsModel.gamesPlayed = GetPlayersStats(playerName).Count();
-            if (playerStatsModel.gamesPlayed == 0)
+            playerStatsModel.PlayerName = playerName;
+            playerStatsModel.GamesPlayed = GetPlayersStats(playerName).Count();
+            if (playerStatsModel.GamesPlayed == 0)
                 return null;
             TraditionalStats traditional = CalculateTraditionalStats(onePlayerStats);
-            playerStatsModel.traditional = traditional;
-            //traditional.RoundDataForAdvancesStats();
-            playerStatsModel.advanced = CalculateAdvancedStats(onePlayerStats, traditional);
+            playerStatsModel.Traditional = traditional;
+            //Traditional.RoundDataForAdvancesStats();
+            playerStatsModel.Advanced = CalculateAdvancedStats(onePlayerStats, traditional);
             return Mapper.ReturnPlayerDto(playerStatsModel);
         }
 

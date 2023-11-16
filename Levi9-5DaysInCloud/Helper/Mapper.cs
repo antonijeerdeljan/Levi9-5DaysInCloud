@@ -15,25 +15,25 @@ namespace Levi9_5DaysInCloud.Helper
 
             PlayersStatsDto playersStatsDto = new PlayersStatsDto
             {
-                playerName = playerStatsModel.playerName,
-                gamesPlayed = playerStatsModel.gamesPlayed,
-                traditional = playerStatsModel.traditional,
-                advanced = playerStatsModel.advanced,
+                PlayerName = playerStatsModel.PlayerName,
+                GamesPlayed = playerStatsModel.GamesPlayed,
+                Traditional = playerStatsModel.Traditional,
+                Advanced = playerStatsModel.Advanced,
             };
             try
             {
-                if (playersStatsDto.traditional != null && playersStatsDto.traditional.freeThrows != null)
+                if (playersStatsDto.Traditional != null && playersStatsDto.Traditional.freeThrows != null)
                 {
-                    playersStatsDto.traditional.freeThrows = (FreeThrows)playersStatsDto.traditional.freeThrows.GetRounded();
-                    playersStatsDto.traditional.twoPoints = (TwoPoints)playersStatsDto.traditional.twoPoints.GetRounded();
-                    playersStatsDto.traditional.threePoints = (ThreePoints)playersStatsDto.traditional.threePoints.GetRounded();
-                    playersStatsDto.traditional.points = Math.Round(playersStatsDto.traditional.points, 1);
-                    playersStatsDto.traditional.rebounds = Math.Round(playersStatsDto.traditional.rebounds, 1);
-                    playersStatsDto.traditional.blocks = Math.Round(playersStatsDto.traditional.blocks, 1);
-                    playersStatsDto.traditional.assists = Math.Round(playersStatsDto.traditional.assists, 1);
-                    playersStatsDto.traditional.steals = Math.Round(playersStatsDto.traditional.steals, 1);
-                    playersStatsDto.traditional.turnovers = Math.Round(playersStatsDto.traditional.turnovers, 1);
-                    playersStatsDto.advanced = playersStatsDto.advanced.GetRounded();
+                    playersStatsDto.Traditional.freeThrows = (FreeThrows)playersStatsDto.Traditional.freeThrows.GetRounded();
+                    playersStatsDto.Traditional.twoPoints = (TwoPoints)playersStatsDto.Traditional.twoPoints.GetRounded();
+                    playersStatsDto.Traditional.threePoints = (ThreePoints)playersStatsDto.Traditional.threePoints.GetRounded();
+                    playersStatsDto.Traditional.points = Math.Round(playersStatsDto.Traditional.points, 1);
+                    playersStatsDto.Traditional.rebounds = Math.Round(playersStatsDto.Traditional.rebounds, 1);
+                    playersStatsDto.Traditional.blocks = Math.Round(playersStatsDto.Traditional.blocks, 1);
+                    playersStatsDto.Traditional.assists = Math.Round(playersStatsDto.Traditional.assists, 1);
+                    playersStatsDto.Traditional.steals = Math.Round(playersStatsDto.Traditional.steals, 1);
+                    playersStatsDto.Traditional.turnovers = Math.Round(playersStatsDto.Traditional.turnovers, 1);
+                    playersStatsDto.Advanced = playersStatsDto.Advanced.GetRounded();
                 }
             }catch(Exception ex)
             {

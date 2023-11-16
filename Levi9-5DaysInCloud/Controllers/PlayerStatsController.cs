@@ -1,4 +1,5 @@
 using Levi9_5DaysInCloud.Dto;
+using Levi9_5DaysInCloud.IRepository;
 using Levi9_5DaysInCloud.Model;
 using Levi9_5DaysInCloud.Model.PlayersModel;
 using Levi9_5DaysInCloud.Repository;
@@ -12,12 +13,12 @@ namespace Levi9_5DaysInCloud.Controllers
     [Route("stats/player")]
     public class PlayerStatsController : ControllerBase
     {
-        private readonly ILogger<PlayerStatsController> _logger;
         private readonly StatsCalculatorService statsCalculatorService;
-        public PlayerStatsController(ILogger<PlayerStatsController> logger)
+        private readonly IPlayerPerformanceRepository _playerPerformanceRepository;
+        public PlayerStatsController(IPlayerPerformanceRepository playerPerformanceRepository)
         {
-            _logger = logger;
-            statsCalculatorService= new StatsCalculatorService();
+            _playerPerformanceRepository = playerPerformanceRepository;
+            statsCalculatorService= new StatsCalculatorService(_playerPerformanceRepository);
         }
 
 

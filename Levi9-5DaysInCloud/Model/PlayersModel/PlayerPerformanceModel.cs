@@ -17,5 +17,26 @@ namespace Levi9_5DaysInCloud.Model.PlayersModel
         public int Assists { get; set; }
         public int Steals { get; set; }
         public int Turnovers { get; set; }
+
+        public PlayerPerformanceModel()
+        {
+
+        }
+        public PlayerPerformanceModel(string name, Position position, int freeThrowMade, int freeThrowAttempted, int twoPointsMade, int twoPointsAttempted, int threePointsMade, int threePointsAttempted, int rebounds, int blocks, int assists, int steals, int turnovers)
+        {
+            Name = name;
+            Position = position;
+            FreeThrowMade = freeThrowMade;
+            FreeThrowAttempted = freeThrowAttempted;
+            TwoPointsMade = twoPointsMade;
+            TwoPointsAttempted = twoPointsAttempted;
+            ThreePointsMade = threePointsMade;
+            ThreePointsAttempted = threePointsAttempted;
+            Rebounds = rebounds;
+            Blocks = blocks;
+            Assists = assists;
+            Steals = steals;
+            Turnovers = turnovers;
+        }
     }
 }

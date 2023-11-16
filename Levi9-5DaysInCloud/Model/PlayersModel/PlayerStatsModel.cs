@@ -6,9 +6,9 @@ namespace Levi9_5DaysInCloud.Model.PlayersModel
 {
     public class PlayerStatsModel
     {
-        public string playerName { get; set; }
-        public int gamesPlayed { get; set; }
-        public TraditionalStats traditional { get; set; }
-        public AdvancedStats advanced { get; set; }
+        public string PlayerName { get; set; }
+        public int GamesPlayed { get; set; }
+        public TraditionalStats Traditional { get; set; }
+        public AdvancedStats Advanced { get; set; }
     }
 }
